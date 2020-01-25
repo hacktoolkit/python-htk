@@ -5,10 +5,12 @@ validate_emails.csv.py
 See usage()
 """
 
+# Python Standard Library Imports
 import codecs
 import csv
 import getopt
 import sys
+
 
 class UTF8Recoder(object):
     """
