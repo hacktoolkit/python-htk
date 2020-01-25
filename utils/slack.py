@@ -11,6 +11,10 @@ import requests
 from ..settings import SLACK_WEBHOOK_URL
 
 
+if SLACK_WEBHOOK_URL is None:
+    raise Exception('HTK_SLACK_WEBHOOK_URL or SLACK_WEBHOOK_URL not set in ENV')
+
+
 def slack_message(
     webhook_url=None,
     channel=None,
@@ -29,12 +33,12 @@ def slack_message(
 
     `channel` override must be a public channel
     """
-
     payload = {
         'text' : text,
         'unfurl_links' : unfurl_links,
         'unfurl_media' : unfurl_media,
     }
+
     if channel:
         payload['channel'] = channel
     if username:
@@ -44,15 +48,25 @@ def slack_message(
     if attachments:
         payload['attachments'] = attachments
 
-    response = requests.post(SLACK_WEBHOOK_URL, json=payload)
-    if response.status_code == 200:
-        # success case, do nothing
-        pass
-    elif response.status_code <= 399:
-        # 200-300, do nothing
-        pass
-    else:
-        print('Slack webhook call error: [{}] {}'.format(response.status_code, response.content))
+    try:
+        response = requests.post(SLACK_WEBHOOK_URL, json=payload)
+        if response.status_code == 200:
+            # success case, do nothing
+            pass
+        elif response.status_code <= 399:
+            # 200-300, do nothing
+            pass
+        else:
+            print('Slack webhook call error: [{}] {}'.format(response.status_code, response.content))
+    except (requests.exceptions.InvalidSchema, requests.exceptions.MissingSchema) as e:
+        raise Exception(
+            'Bad SLACK_WEBHOOK_URL: [{}] ({})'.format(
+                SLACK_WEBHOOK_URL,
+                e.__class__.__name__
+            )
+        )
+    except:
+        raise
 
     return response
 
