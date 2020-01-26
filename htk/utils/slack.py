@@ -16,7 +16,7 @@ if SLACK_WEBHOOK_URL is None:
 
 
 def slack_message(
-    webhook_url=None,
+    webhook_url=SLACK_WEBHOOK_URL,
     channel=None,
     username=None,
     text='',
@@ -49,7 +49,7 @@ def slack_message(
         payload['attachments'] = attachments
 
     try:
-        response = requests.post(SLACK_WEBHOOK_URL, json=payload)
+        response = requests.post(webhook_url, json=payload)
         if response.status_code == 200:
             # success case, do nothing
             pass
@@ -60,8 +60,8 @@ def slack_message(
             print('Slack webhook call error: [{}] {}'.format(response.status_code, response.content))
     except (requests.exceptions.InvalidSchema, requests.exceptions.MissingSchema) as e:
         raise Exception(
-            'Bad SLACK_WEBHOOK_URL: [{}] ({})'.format(
-                SLACK_WEBHOOK_URL,
+            'Bad Slack webhook URL: [{}] ({})'.format(
+                webhook_url,
                 e.__class__.__name__
             )
         )
