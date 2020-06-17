@@ -1,3 +1,5 @@
+[![](https://img.shields.io/pypi/pyversions/htk.svg?longCache=True)](https://pypi.org/project/htk/)
+
 # python-htk
 
 A set of convenience utils for Python requiring no external libs. Some of the best tricks from [`django-htk`](https://github.com/hacktoolkit/django-htk), without the bloat and Django dependency.
