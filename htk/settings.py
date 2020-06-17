@@ -1,6 +1,13 @@
 # Python Standard Library Imports
 import os
 
+# Third Party (PyPI) Imports
+import requests
+from dotenv import load_dotenv
+
+
+load_dotenv()
+
 
 ##
 # Various Settings and Configuration Variables

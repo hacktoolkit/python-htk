@@ -90,6 +90,7 @@ setup(
     # requirements files see:
     # https://packaging.python.org/en/latest/requirements.html
     install_requires=[
+        'python-dotenv>=0.13.0',
         'requests>=2',
     ],
 
