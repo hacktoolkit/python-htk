@@ -1,4 +1,5 @@
 [![](https://img.shields.io/pypi/pyversions/htk.svg?longCache=True)](https://pypi.org/project/htk/)
+[![](https://img.shields.io/pypi/v/htk.svg?maxAge=3600)](https://pypi.org/project/htk/)
 
 # python-htk
 
