@@ -9,7 +9,7 @@ from ..encoders import DecimalEncoder
 
 
 def fdebug(file_path, text):
-    with open(file_path, 'w') as f:
+    with open(file_path, 'w+') as f:
         f.write(text)
 
 
