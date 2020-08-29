@@ -8,7 +8,8 @@ A set of convenience utils for Python requiring no external libs. Some of the be
 
 # Features
 
-1. Debug via Slack using `slack_debug` and `slack_debug_json`. The best of `println` debugging, without the inconvenience of visually fishing for one message out of thousands of log lines.
+- Debug via Slack using `slack_debug` and `slack_debug_json`. The best of `println` debugging, without the inconvenience of visually fishing for one message out of thousands of log lines.
+- Debug via writing to local file using `fdb` (`fdebug`) and `fdb_json` (`fdebug_json`). Certifiably awesome, fast, and secure.
 
 
 # How To Use This Awesome?
