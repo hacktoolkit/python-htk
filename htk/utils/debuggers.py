@@ -41,6 +41,8 @@ def slack_debug_json(obj, label='JSON'):
 
 
 __all__ = [
+    'fdebug',
+    'fdebug_json',
     'slack_debug',
     'slack_debug_json',
 ]
