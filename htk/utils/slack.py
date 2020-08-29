@@ -11,10 +11,6 @@ import requests
 from ..settings import SLACK_WEBHOOK_URL
 
 
-if SLACK_WEBHOOK_URL is None:
-    raise Exception('HTK_SLACK_WEBHOOK_URL or SLACK_WEBHOOK_URL not set in ENV')
-
-
 def slack_message(
     webhook_url=SLACK_WEBHOOK_URL,
     channel=None,
@@ -33,6 +29,9 @@ def slack_message(
 
     `channel` override must be a public channel
     """
+    if webhook_url is None:
+        raise Exception('HTK_SLACK_WEBHOOK_URL or SLACK_WEBHOOK_URL not set in ENV')
+
     payload = {
         'text' : text,
         'unfurl_links' : unfurl_links,
