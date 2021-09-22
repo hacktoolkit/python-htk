@@ -9,6 +9,12 @@ import json
 from ..encoders import DecimalEncoder
 
 
+DEFAULT_FILE_PATH = '/tmp/fdebug.log'
+
+
+# isort: off
+
+
 class FDebugCounter:
     _instance = None
 
@@ -28,7 +34,7 @@ class FDebugCounter:
         return getattr(self._instance, name)
 
 
-def fdebug(text, file_path='/tmp/fdebug.log'):
+def fdebug(text, file_path=DEFAULT_FILE_PATH):
     counter = FDebugCounter()
     counter.increment()
     now = datetime.datetime.now()
@@ -50,13 +56,13 @@ def fdebug(text, file_path='/tmp/fdebug.log'):
         )
 
 
-def fdebug_json(file_path, obj, label='JSON'):
+def fdebug_json(obj, file_path=DEFAULT_FILE_PATH, label='JSON'):
     fdebug(
-        file_path,
         '%s: ```%s```' % (
             label,
             json.dumps(obj, indent=2, cls=DecimalEncoder),
-        )
+        ),
+        file_path=file_path
     )
 
 
