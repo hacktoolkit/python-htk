@@ -48,9 +48,16 @@ A set of convenience utils for Python requiring no external libs. Some of the be
 1. You can place it outside of your app directory tree, and then symlink it inside.
 1. To not be nagged by the presence of the `htk` directory whenever you do `git status`, add `htk` to your `.git/info/exclude` file (like `.gitignore`, but only in your local repository, not checked in).
 
+# See Also
+
+- C# - https://github.com/hacktoolkit/csharp-htk
+- PHP - https://github.com/hacktoolkit/php-htk
+- Ruby - https://github.com/hacktoolkit/htk-rb
+
 # Authors and Maintainers
 
-[Hacktoolkit](https://github.com/hacktoolkit) and [Jonathan Tsai](https://github.com/jontsai)
+- [Hacktoolkit](https://github.com/hacktoolkit)
+- [Jonathan Tsai](https://github.com/jontsai)
 
 # License
 
