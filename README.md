@@ -52,6 +52,8 @@ A set of convenience utils for Python requiring no external libs. Some of the be
 
 - C# - https://github.com/hacktoolkit/csharp-htk
 - PHP - https://github.com/hacktoolkit/php-htk
+- Python (full) - https://github.com/hacktoolkit/python-htk
+- Python (lite) - https://github.com/hacktoolkit/python-htk-lite
 - Ruby - https://github.com/hacktoolkit/htk-rb
 
 # Authors and Maintainers
