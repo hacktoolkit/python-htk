@@ -6,9 +6,9 @@ https://github.com/pypa/sampleproject
 """
 
 # Python Standard Library Imports
+import os
 # To use a consistent encoding
 from codecs import open
-from os import path
 
 # Third Party (PyPI) Imports
 # Always prefer setuptools over distutils
@@ -18,36 +18,38 @@ from setuptools import (
 )
 
 
-here = path.abspath(path.dirname(__file__))
+here = os.path.abspath(os.path.dirname(__file__))
 
-# Get the long description from the README file
-# with open(path.join(here, 'README.md'), encoding='utf-8') as f:
-#     long_description = f.read()
 
-long_description = 'A set of convenience utils for Python requiring no external libs. Some of the best tricks from [`django-htk`](https://github.com/hacktoolkit/django-htk), without the bloat and Django dependency.'
+about = {}
+with open(os.path.join(here, 'src', '__version__.py'), 'r', 'utf-8') as f:
+    exec(f.read(), about)
 
-with open(path.join(here, 'VERSION')) as f:
-    VERSION = f.read().strip()
+
+with open('README.md', 'r', 'utf-8') as f:
+    readme = f.read()
+
 
 setup(
-    name='htk',
+    name=about['__title__'],
 
     # Versions should comply with PEP440.  For a discussion on single-sourcing
     # the version across setup.py and the project code, see
     # https://packaging.python.org/en/latest/single_source_version.html
-    version=VERSION,
+    version=about['__version__'],
 
-    description='Python utilities by Hacktoolkit.',
-    long_description=long_description,
+    description=about['__description__'],
+    long_description=readme,
+    long_description_content_type='text/markdown',
 
     # The project's main homepage.
-    url='https://github.com/hacktoolkit/python-htk',
+    url=about['__url__'],
 
     # Author details
-    author='Hacktoolkit',
-    author_email='hello@hacktoolkit.com',
+    author=about['__author__'],
+    author_email=about['__author_email__'],
 
-    license='MIT',
+    license=about['__license__'],
 
     # See https://pypi.python.org/pypi?%3Aaction=list_classifiers
     classifiers=[
@@ -55,7 +57,7 @@ setup(
         #   3 - Alpha
         #   4 - Beta
         #   5 - Production/Stable
-        'Development Status :: 3 - Alpha',
+        'Development Status :: 5 - Production/Stable',
 
         # Indicate who your project is intended for
         'Intended Audience :: Developers',
@@ -109,6 +111,9 @@ setup(
     package_data={
         #'sample': ['package_data.dat'],
     },
+    package_dir={
+        'htk': 'src',
+    },
 
     # Although 'package_data' is the preferred approach, in some case you may
     # need to place data files outside of your packages. See:
@@ -122,5 +127,9 @@ setup(
     entry_points={
         'console_scripts': [
         ],
+    },
+    project_urls={
+        'Documentation': about['__url__'],
+        'Source': about['__url__'],
     },
 )
