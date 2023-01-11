@@ -6,12 +6,16 @@ import requests
 from dotenv import load_dotenv
 
 
+# isort: off
+
+
 load_dotenv()
 
 
 ##
 # Various Settings and Configuration Variables
 
+SLACK_BOT_TOKEN = os.environ.get('HTK_SLACK_BOT_TOKEN', os.environ.get('SLACK_BOT_TOKEN'))
 SLACK_WEBHOOK_URL = os.environ.get('HTK_SLACK_WEBHOOK_URL', os.environ.get('SLACK_WEBHOOK_URL'))
 
 

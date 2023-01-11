@@ -22,7 +22,7 @@ here = os.path.abspath(os.path.dirname(__file__))
 
 
 about = {}
-with open(os.path.join(here, 'src', '__version__.py'), 'r', 'utf-8') as f:
+with open(os.path.join(here, 'htk', '__version__.py'), 'r', 'utf-8') as f:
     exec(f.read(), about)
 
 
@@ -112,7 +112,7 @@ setup(
         #'sample': ['package_data.dat'],
     },
     package_dir={
-        'htk': 'src',
+        'htk': 'htk',
     },
 
     # Although 'package_data' is the preferred approach, in some case you may
