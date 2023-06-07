@@ -64,7 +64,7 @@ def slack_message(
 ) -> requests.Response:
     """Wrapper around `send_webhook_message` + `SlackMessage` for legacy/backwards-compatibility.
 
-    New implementations should directly use `send_webhook_message`
+    New implementations should directly use `send_webhook_message` or `send_message`
     """
     return send_webhook_message(
         message=SlackMessage(
@@ -94,6 +94,8 @@ def send_webhook_message(
     https://api.slack.com/docs/message-formatting
 
     `channel` override must be a public channel
+
+    NOTE: Incoming webhooks is deprecated, and when possible, `send_message` should be used instead
     """
     if webhook_url is None:
         raise Exception('HTK_SLACK_WEBHOOK_URL or SLACK_WEBHOOK_URL not set in ENV')
@@ -121,9 +123,12 @@ def send_webhook_message(
     return response
 
 
-def send_webhook_messages_as_thread(
+def send_message(message: SlackMessage, error_response_handlers=None) -> requests.Response:
+    pass
+
+
+def send_messages_as_thread(
     messages: T.List[SlackMessage],
-    webhook_url=SLACK_WEBHOOK_URL,
     error_response_handlers=None
 ):
     """Sends a series of `SlackMessage` objects in a thread
