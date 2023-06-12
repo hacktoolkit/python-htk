@@ -25,7 +25,7 @@ A set of convenience utils for Python requiring no external libs. Some of the be
     1. Create an ENV variable named `HTK_SLACK_WEBHOOK_URL` or `SLACK_WEBHOOK_URL`.
     1. For a local clone, you can also create a `local_settings.py` and add the constant `HTK_SLACK_WEBHOOK_URL` or `SLACK_WEBHOOK_URL` within.
 
-### Tips on Location of HTK Module 
+### Tips on Location of HTK Module (for Local Installation Only)
 
 1. You can place it outside of your app directory tree, and then symlink it inside.
 1. To not be nagged by the presence of the `htk` directory whenever you do `git status`, add `htk` to your `.git/info/exclude` file (like `.gitignore`, but only in your local repository, not checked in).
@@ -53,12 +53,14 @@ A set of convenience utils for Python requiring no external libs. Some of the be
     (Alternative link to screenshot above: https://cl.ly/436cfb4383a2)
 1. Profit!
 
-## FDebug (FDB)
+## FDebug (`FDB` aka `fdb`, short for `fdebug`)
 
 1. (**Recommended**) Create a BASH alias or similar: `alias fdb='touch /tmp/fdebug.log; tail -f /tmp/fdebug.log'`
-    1. In a separate window used for debugging, run `fdb` to watch the logs roll in.
+   1. By default, the file path which `fdb` writes to is `/tmp/fdebug.log`. This is because `/tmp` is generally a writeable path on most systems.
+   1. In a separate window used for debugging, run `fdb` to watch the logs roll in.
 1. `from htk import fdb`
 1. `fdb('Not all heroes wear capes')`
+    1. If a different file path is desired, simply invoke `fdb` with its second optional argument: `fdb('log or debugging message', file_path='/path/to/fdebug.log')
 
 # See Also
 
