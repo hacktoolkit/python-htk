@@ -8,14 +8,20 @@ help:
 isort:
 	isort -rc *
 
-## clean - Cleans build artifacts
-clean:
-	rm -rf dist/*
-	rm -rf build/*
+## test - Runs unit tests
+test:
+	python -m venv venv
+	venv/bin/pip install .[test]
+	venv/bin/pytest tests/
 
 ## version - Shows current version of package
 version:
 	echo $(VERSION)
+
+## clean - Cleans build artifacts
+clean:
+	rm -rf dist/*
+	rm -rf build/*
 
 ## package - Builds a package for dist
 package:

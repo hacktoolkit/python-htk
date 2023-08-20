@@ -202,6 +202,8 @@ def send_messages_as_thread(
         else:
             pass
 
+    return thread_ts
+
 
 __all__ = [
     "SlackMessage",
