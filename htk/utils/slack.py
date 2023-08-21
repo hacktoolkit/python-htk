@@ -8,7 +8,6 @@ from dataclasses import dataclass
 
 # Third Party (PyPI) Imports
 import requests
-from requests.exceptions import JSONDecodeError
 
 # Local Imports
 from ..settings import (
@@ -105,38 +104,42 @@ def send_webhook_message(
     if webhook_url is None:
         webhook_url = SLACK_WEBHOOK_URL
         if webhook_url is None:
-            raise Exception("HTK_SLACK_WEBHOOK_URL or SLACK_WEBHOOK_URL not set in ENV")
+            raise Exception(  # pragma: no cover
+                "HTK_SLACK_WEBHOOK_URL or SLACK_WEBHOOK_URL not set in ENV"
+            )
 
     try:
         response = requests.post(webhook_url, json=message.as_payload)
         if response.status_code == 200:
             # success case, do nothing
             pass
-        elif response.status_code <= 399:
+        elif response.status_code <= 399:  # pragma: no cover
             # 200-300, do nothing
             pass
         else:
-            print(
+            print(  # pragma: no cover
                 "Slack webhook call error: [{}] {}".format(
                     response.status_code, response.content
                 )
             )
-    except (requests.exceptions.InvalidSchema, requests.exceptions.MissingSchema) as e:
+    except (
+        requests.exceptions.InvalidSchema,
+        requests.exceptions.MissingSchema,
+    ) as e:
         raise Exception(
             "Bad Slack webhook URL: [{}] ({})".format(
                 webhook_url,
                 e.__class__.__name__,
             )
         )
-    except:
-        raise
 
     return response
 
 
 def send_message(
     message: SlackMessage,
-    thread_ts=None,
+    channel: T.Optional[str] = None,
+    thread_ts: T.Optional[str] = None,
     error_response_handlers=None,
     token=None,
 ) -> requests.Response:
@@ -153,7 +156,12 @@ def send_message(
     if token is None:
         token = SLACK_BOT_TOKEN
         if token is None:
-            raise Exception("HTK_SLACK_BOT_TOKEN or SLACK_BOT_TOKEN not set in ENV")
+            raise Exception(  # pragma: no cover
+                "HTK_SLACK_BOT_TOKEN or SLACK_BOT_TOKEN not set in ENV"
+            )
+
+    if channel is not None:
+        message.channel = channel
 
     if thread_ts is not None:
         message.thread_ts = thread_ts
@@ -164,14 +172,14 @@ def send_message(
     try:
         response = requests.post(url, auth=auth, json=message.as_payload)
         response_json = response.json()
-    except JSONDecodeError as e:
+    except requests.exceptions.JSONDecodeError as e:  # pragma: no cover
         response_json = {
             "response": {
                 "status": response.status_code,
                 "content": response.content,
             },
         }
-    except Exception as e:
+    except Exception as e:  # pragma: no cover
         response = None
         print(e)
 
@@ -179,8 +187,10 @@ def send_message(
 
 
 def send_messages_as_thread(
-    messages: T.List[SlackMessage], error_response_handlers=None
-):
+    messages: T.List[SlackMessage],
+    channel: T.Optional[str] = None,
+    error_response_handlers=None,
+) -> str:
     """Sends a series of `SlackMessage` objects in a thread
 
     The first message is posted, then each message is posted subsequently in the thread of the first message.
@@ -188,11 +198,10 @@ def send_messages_as_thread(
     is_first = True
     thread_ts = None
 
-    print(len(messages))
-
     for message in messages:
         response = send_message(
             message,
+            channel=channel,
             thread_ts=thread_ts,
             error_response_handlers=error_response_handlers,
         )
@@ -200,7 +209,7 @@ def send_messages_as_thread(
             is_first = False
             thread_ts = response.get("ts")
         else:
-            pass
+            pass  # pragma: no cover
 
     return thread_ts
 
